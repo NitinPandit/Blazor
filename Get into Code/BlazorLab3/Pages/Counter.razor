@@ -1,0 +1,39 @@
+﻿@page "/counter"
+
+
+    <div class="container">
+        <h1>Clicks and Age Counter</h1>
+        <div class="form-group">
+            <label class="col-md-12">Click the button to count</label>
+            <button class="btn btn-primary" @onclick="IncrementCount">Increment Count</button>
+            <div class="alert alert-success">
+                Current count: @currentCount
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-12">Select Date of Birth</label>
+            <input @onchange="@((ChangeEventArgs __e)=>{ dob = __e.Value.ToString(); })" class="form-control" type="date" />
+            <button class="btn btn-primary" @onclick="CalculateAge">Calculate Age</button>
+            <div class="alert alert-success">
+                Current Age: @age
+            </div>
+        </div>
+    </div>
+
+@code {
+    private int currentCount = 0;
+
+    int age;
+    public string dob { get; set; }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private void CalculateAge()
+    {
+        age = (DateTime.Now-Convert.ToDateTime(dob)).Days / 365;
+    }
+
+}
